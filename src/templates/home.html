@@ -24,10 +24,24 @@
 
     {% block content %}
     <div id="content" class="container">
-        <h1>{{ message }}</h1>
+        <h1>Perdu ? Demandez votre chemain à GrandPybot,
+        le cyberpapy !</h1>
+
+        <div id="message_history">
+            {% for message in message_history %}
+                <div class="message">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
         <div class="form-group">
-            <label for="unparsed_message">Message à parser</label>
-            <input type="text"  class="form-control" id="unparsed_message" placeholder="Le message à parser">
+            <form id="unparsed_message_form" action="" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <label for="unparsed_message">Message à parser</label>
+                <input type="text"  class="form-control" id="unparsed_message" name="unparsed_message" placeholder="Le message à parser">
+                <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+            </form>
         </div>
     </div>
     {% endblock content %}
@@ -51,6 +65,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='javascript/send_to_parser.js') }}" defer></script>
 
 {% endblock javascript %}
 
