@@ -1,9 +1,13 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
+from flask_wtf.csrf import CSRFProtect
 
 from stop_words import STOP_WORDS
+from settings_local import SECRET_KEY
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
+app.secret_key = SECRET_KEY
 
 
 @app.route("/")
