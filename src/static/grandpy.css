@@ -1,0 +1,6 @@
+div.scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    border: 1px solid #ccc;
+}

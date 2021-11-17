@@ -22,9 +22,20 @@ def landing_page():
 @app.route("/ajax/parser", methods=['GET', 'POST'])
 def parser():
     data = request.form.to_dict()
+
     unparsed_message = data["unparsed_message"]
+    # TODO: Clean the message to avoid XSS attacks
+    user_message = wrap_message(unparsed_message, is_bot=False)
+
     parsed_message = parse_message(unparsed_message)
-    return render_template("home.html")
+    # TODO: Add a call to Wikimedia API to complete the answer
+    bot_anwser = wrap_message(parsed_message, is_bot=True)
+
+    context = {}
+    # TODO: Keep more than one message in the history
+    # make it scrollable and responsive.
+    context["message_history"] = [user_message, bot_anwser]
+    return render_template("messages.html", **context)
 
 
 def parse_message(message: str) -> str:
@@ -37,10 +48,8 @@ def parse_message(message: str) -> str:
 
     # Cleanse the list from stop words
     for word in splitted_message:
-        print("examinated word :", word)
         for stop_word in STOP_WORDS:
             if word == stop_word:
-                print("match", word)
                 parsed_message.remove(word)
                 break
 
@@ -57,11 +66,9 @@ def wrap_message(message: str, is_bot: bool) -> str:
     """
     formated_message = ""
 
-    # TODO: Add format to the message
-    # Add names before the message
     if is_bot:
-        pass
+        formated_message = "<b>GrandPy:</b> " + message
     else:
-        pass
+        formated_message = "<b>Vous:</b> " + message
 
     return formated_message
