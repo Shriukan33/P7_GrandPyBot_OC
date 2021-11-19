@@ -38,8 +38,10 @@ class MessageHandler:
         formated_message = ""
 
         if is_bot:
-            formated_message = "<b>GrandPy:</b> " + message
+            formated_message = \
+                "<span class='bot_message'>GrandPy:</span> " + message
         else:
-            formated_message = "<b>Vous:</b> " + message
+            formated_message = \
+                "<span class='user_message'>Vous:</span> " + message
 
         return formated_message

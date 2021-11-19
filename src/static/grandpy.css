@@ -4,3 +4,11 @@ div.scroll {
     text-align:justify;
     border: 1px solid #ccc;
 }
+.user_message {
+    color: rgb(0, 17, 255);
+    font-weight: bold;
+}
+.bot_message {
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
