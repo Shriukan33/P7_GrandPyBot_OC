@@ -28,16 +28,22 @@
         <h1>Perdu ? Demandez votre chemain à GrandPybot,
         le cyberpapy !</h1>
 
-        <div id="message_history" class="scroll m-1 p-1"></div>
+        <div id="message_history" class="scroll m-1 p-1" style="display:none;"></div>
 
         <div class="form-group">
             <form id="unparsed_message_form" action="" method="post">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <label for="unparsed_message">Message à parser</label>
-                <input type="text"  class="form-control" id="unparsed_message" name="unparsed_message" placeholder="Le message à parser">
+                <label for="unparsed_message">Posez une question à Grandpy !</label>
+                <input type="text"  class="form-control" id="unparsed_message" name="unparsed_message" 
+                placeholder="Ex: Bonjour Grandpy, dis c'est où la Tour Eiffel ?">
                 <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
             </form>
         </div>
+
+        <div id="google_maps_area" class="d-flex col-8 mt-5 mx-auto">
+            <div id="map"></div>
+        </div>
+
     </div>
     {% endblock content %}
 
@@ -47,7 +53,8 @@
                 <span class="text-muted">
                     GrandPybot, le cyberpapy voyageur --
                 </span>
-                <a href="https://github.com/Shriukan33">Mon GitHub</a>
+                <a href="https://github.com/Shriukan33">Mon GitHub</a> --
+                <a href="https://www.linkedin.com/in/benjamin-mourgues-33000/">Mon LinkedIn</a>
             </div>
         </footer>
     {% endblock footer %}
@@ -55,12 +62,32 @@
 
 {% endblock body %}
 </body>
+
 {% block javascript %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='javascript/send_to_parser.js') }}" defer></script>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of the eiffel tower
+            const tour_eiffel = { lat: 48.85837009999999, lng: 2.2944813 };
+            // The map, centered on the eiffel tower
+            const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: tour_eiffel,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+            position: tour_eiffel,
+            map: map,
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&callback=initMap&libraries=&v=weekly"
+    async defer></script>
 
 {% endblock javascript %}
 

@@ -12,3 +12,7 @@ div.scroll {
     color: rgb(255, 0, 0);
     font-weight: bold;
 }
+#map {
+    height: 400px;
+    width: 100%;
+}

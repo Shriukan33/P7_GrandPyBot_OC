@@ -1,10 +1,9 @@
-
 from bleach import clean
 from flask import Flask, request
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 
-from settings_local import SECRET_KEY
+from settings_local import SECRET_KEY, MAPS_API_KEY
 
 from message_handler import MessageHandler as mh
 from wikimedia_api import wikiAPI as wiki
@@ -19,6 +18,7 @@ app.secret_key = SECRET_KEY
 def landing_page():
     context = {}
     context["message_history"] = []
+    context["maps_api_key"] = MAPS_API_KEY
     return render_template("home.html", **context)
 
 
