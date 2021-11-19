@@ -9,6 +9,12 @@ $(function(){
 document.querySelector("#unparsed_message_form").addEventListener("submit", async function() {
     // Get the message
     console.log("Sending message to parser...")
+
+    let message = document.querySelector("#unparsed_message").value
+    if (message == "") {
+        return false
+    }
+
     var form = new FormData(document.querySelector("#unparsed_message_form"))
     console.log(form)
     csrftoken = document.getElementsByName("csrf_token")[0].value
