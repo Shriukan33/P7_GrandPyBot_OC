@@ -35,7 +35,9 @@ def parser():
     wiki_answer = wiki()
     wiki_answer = wiki.get_wiki_answer(wiki_answer, parsed_message)
     if wiki_answer:
-        bot_message = f"{parsed_message}, wiki dit : {wiki_answer['extract']}"
+        bot_message = \
+            f"{parsed_message}, wiki dit : {wiki_answer['extract']}" + \
+            f" [<a href={wiki_answer['url']}>En savoir plus sur Wikipedia</a>]"
     else:
         bot_message = "Pardon, tu peux répéter ? Mon audition n'est plus" + \
             " ce qu'elle était ..."

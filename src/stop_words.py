@@ -47,6 +47,7 @@ STOP_WORDS = [
     "avais",
     "avait",
     "avant",
+    "avance",
     "avec",
     "avoir",
     "avons",
