@@ -37,6 +37,8 @@ def parser():
         latitude = coordinates["lat"]
         longitude = coordinates["lng"]
         formatted_address = maps.get_address(maps(), latitude, longitude)
+    else:
+        formatted_address = None
 
     wiki_answer = wiki()
     wiki_answer = wiki.get_wiki_answer(wiki_answer, parsed_message)
