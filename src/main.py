@@ -1,5 +1,5 @@
 from bleach import clean
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 
@@ -7,6 +7,7 @@ from settings_local import SECRET_KEY, MAPS_API_KEY
 
 from message_handler import MessageHandler as mh
 from wikimedia_api import wikiAPI as wiki
+from maps_api import MapsAPI as maps
 
 
 app = Flask(__name__)
@@ -25,15 +26,21 @@ def landing_page():
 @app.route("/ajax/parser", methods=['GET', 'POST'])
 def parser():
     data = request.form.to_dict()
+    context = {}
 
     unparsed_message = data["unparsed_message"]
 
     parsed_message = mh.parse_message(unparsed_message)
 
-    # TODO: Add call to Google maps API here
+    coordinates = maps.get_lat_lng(maps(), parsed_message)
+    if coordinates:
+        latitude = coordinates["lat"]
+        longitude = coordinates["lng"]
+        formatted_address = maps.get_address(maps(), latitude, longitude)
 
     wiki_answer = wiki()
     wiki_answer = wiki.get_wiki_answer(wiki_answer, parsed_message)
+
     if wiki_answer:
         bot_message = \
             f"{parsed_message}, wiki dit : {wiki_answer['extract']}" + \
@@ -42,14 +49,20 @@ def parser():
         bot_message = "Pardon, tu peux répéter ? Mon audition n'est plus" + \
             " ce qu'elle était ..."
 
+    if coordinates:
+        bot_message += \
+            f" latitude : {context['lat']} | longitude : {context['lng']}"
+    elif not coordinates and wiki_answer:
+        bot_message += "Mais j'ai du mal à me rappeler de l'adresse ..."
+
     bot_anwser = mh.wrap_message(bot_message, is_bot=True)
 
     # Cleanse the message to avoid malicious code
     cleaned_message = clean(unparsed_message, strip=True)
     user_message = mh.wrap_message(cleaned_message, is_bot=False)
 
-    context = {}
-    # TODO: Keep more than one message in the history
-    # make it scrollable and responsive.
     context["message_history"] = [user_message, bot_anwser]
-    return render_template("messages.html", **context)
+    myanswer = {}
+    myanswer["message_history"] = render_template("messages.html", **context)
+    myanswer["coordinates"] = coordinates
+    return jsonify(myanswer)

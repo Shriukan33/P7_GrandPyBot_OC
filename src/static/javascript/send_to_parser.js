@@ -22,12 +22,15 @@ document.querySelector("#unparsed_message_form").addEventListener("submit", asyn
             "X-CSRFToken": csrftoken
         },
         body: form
-    }).then((messages_html) => {
+    }).then((myanswer) => {
         document.getElementById("message_history").style.display = "block"
-        return messages_html.text()
+        return myanswer.json()
     });
 
-    $("#message_history").html(messages_html)
+    $("#message_history").html(messages_html["message_history"])
+    lat = messages_html["coordinates"]["lat"]
+    lon = messages_html["coordinates"]["lng"]
+    initMap(lat, lon)
     // Clear the message
     document.querySelector("#unparsed_message").value = ""
 

@@ -69,23 +69,7 @@
     crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='javascript/send_to_parser.js') }}" defer></script>
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of the eiffel tower
-            const tour_eiffel = { lat: 48.85837009999999, lng: 2.2944813 };
-            // The map, centered on the eiffel tower
-            const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 12,
-            center: tour_eiffel,
-            });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-            position: tour_eiffel,
-            map: map,
-            });
-        }
-    </script>
+    <script src="{{ url_for('static', filename='javascript/init_maps.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&callback=initMap&libraries=&v=weekly"
     async defer></script>
 
