@@ -12,6 +12,8 @@ document.querySelector("#unparsed_message_form").addEventListener("submit", asyn
     if (message == "") {
         return false
     }
+    document.getElementById("message_history").style.display = "none"
+    document.getElementById("loader_icon").style.display = "block"
 
     var form = new FormData(document.querySelector("#unparsed_message_form"))
     csrftoken = document.getElementsByName("csrf_token")[0].value
@@ -24,6 +26,7 @@ document.querySelector("#unparsed_message_form").addEventListener("submit", asyn
         body: form
     }).then((myanswer) => {
         document.getElementById("message_history").style.display = "block"
+        document.getElementById("loader_icon").style.display = "none"
         return myanswer.json()
     });
 
