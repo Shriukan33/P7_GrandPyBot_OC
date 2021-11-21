@@ -41,21 +41,10 @@ def parser():
     wiki_answer = wiki()
     wiki_answer = wiki.get_wiki_answer(wiki_answer, parsed_message)
 
-    if wiki_answer:
-        bot_message = \
-            f"{parsed_message}, wiki dit : {wiki_answer['extract']}" + \
-            f" [<a href={wiki_answer['url']}>En savoir plus sur Wikipedia</a>]"
-    else:
-        bot_message = "Pardon, tu peux répéter ? Mon audition n'est plus" + \
-            " ce qu'elle était ..."
-
-    if coordinates:
-        bot_message += \
-            f" latitude : {context['lat']} | longitude : {context['lng']}"
-    elif not coordinates and wiki_answer:
-        bot_message += "Mais j'ai du mal à me rappeler de l'adresse ..."
-
-    bot_anwser = mh.wrap_message(bot_message, is_bot=True)
+    bot_anwser = ""
+    bot_anwser = mh.add_address(bot_anwser, formatted_address)
+    bot_anwser = mh.add_wiki_answer(bot_anwser, wiki_answer)
+    bot_anwser = mh.wrap_message(bot_anwser, is_bot=True)
 
     # Cleanse the message to avoid malicious code
     cleaned_message = clean(unparsed_message, strip=True)

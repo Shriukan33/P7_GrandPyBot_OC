@@ -45,3 +45,24 @@ class MessageHandler:
                 "<span class='user_message'>Vous:</span> " + message
 
         return formated_message
+
+    def add_wiki_answer(message: str, wiki_answer: dict) -> str:
+        """
+        Add the wiki answer to the message and its link.
+        """
+        if wiki_answer:
+            message += wiki_answer['extract']
+            message += f" [<a href={wiki_answer['url']}>En savoir" + \
+                " plus sur Wikipedia</a>]"
+        else:
+            message += "Peux tu répéter ? Mon audition n'est plus " + \
+                "ce qu'elle était ..."
+        return message
+
+    def add_address(message: str, formated_address) -> str:
+        """
+        Add the address to the message.
+        """
+        if formated_address:
+            message += formated_address + ". "
+        return message
