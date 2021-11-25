@@ -28,3 +28,11 @@ div.scroll {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+#grandpy_logo {
+    max-height: 8vh;
+    margin-right: 1.25rem;
+}
+.spacer {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}

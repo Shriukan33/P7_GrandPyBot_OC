@@ -25,8 +25,11 @@
 
     {% block content %}
     <div id="content" class="d-flex flex-column col-10 col-sm-10 col-lg-8 mt-5 mx-auto">
-        <h1>Perdu ? Demandez votre chemin à GrandPybot,
-        le cyberpapy !</h1>
+        <div id="title_banner" class="d-flex flex-row d-flex align-items-center">
+            <img id="grandpy_logo" src="{{ url_for('static', filename='logo_papy_robot.png') }}" alt="GrandPybot" class="img-fluid ">
+            <h1 class="d-flex align-items-center">Perdu ? Demandez votre chemin à GrandPybot,
+            le cyberpapy !</h1>
+        </div>
 
         <div id="message_history" class="scroll m-1 p-1" style="display:none;"></div>
         <div id="loader_icon" class="loader m-auto" style="display:none;"></div> 
@@ -44,6 +47,8 @@
         <div id="google_maps_area" class="d-flex col-12 col-sm-10 col-lg-8 mt-5 mx-auto">
             <div id="map"></div>
         </div>
+
+        <div class="spacer"></div>
 
     </div>
     {% endblock content %}
