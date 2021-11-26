@@ -30,7 +30,8 @@ def parser():
 
     unparsed_message = data["unparsed_message"]
 
-    parsed_message = mh.parse_message(unparsed_message)
+
+    parsed_message = mh.parse_message(mh(), unparsed_message)
 
     coordinates = maps.get_lat_lng(maps(), parsed_message)
     if coordinates:
@@ -44,13 +45,13 @@ def parser():
     wiki_answer = wiki.get_wiki_answer(wiki_answer, parsed_message)
 
     bot_anwser = ""
-    bot_anwser = mh.add_address(bot_anwser, formatted_address)
-    bot_anwser = mh.add_wiki_answer(bot_anwser, wiki_answer)
-    bot_anwser = mh.wrap_message(bot_anwser, is_bot=True)
+    bot_anwser = mh.add_address(mh(), bot_anwser, formatted_address)
+    bot_anwser = mh.add_wiki_answer(mh(), bot_anwser, wiki_answer)
+    bot_anwser = mh.wrap_message(mh(), bot_anwser, is_bot=True)
 
     # Cleanse the message to avoid malicious code
     cleaned_message = clean(unparsed_message, strip=True)
-    user_message = mh.wrap_message(cleaned_message, is_bot=False)
+    user_message = mh.wrap_message(mh(), cleaned_message, is_bot=False)
 
     context["message_history"] = [user_message, bot_anwser]
     myanswer = {}
