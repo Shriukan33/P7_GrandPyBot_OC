@@ -1,4 +1,4 @@
-from stop_words import STOP_WORDS
+from .stop_words import STOP_WORDS
 import re
 
 

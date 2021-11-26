@@ -1,7 +1,7 @@
 import requests
 
 
-class wikiAPI:
+class WikiAPI:
     """
     This class groups the functions needed for the Wikimedia
     API to be used.
@@ -44,7 +44,7 @@ class wikiAPI:
         else:
             return None
 
-    def get_extract(self, page_id: int) -> dict:
+    def get_extract(self, page_id: int) -> str:
         """
         This function gets the 3 first sentences of a page.
         """

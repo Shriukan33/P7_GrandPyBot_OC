@@ -3,11 +3,11 @@ from flask import Flask, request, jsonify
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
 
-from settings_local import SECRET_KEY, MAPS_API_KEY
+from .settings_local import SECRET_KEY, MAPS_API_KEY
 
-from message_handler import MessageHandler as mh
-from wikimedia_api import wikiAPI as wiki
-from maps_api import MapsAPI as maps
+from .message_handler import MessageHandler as mh
+from .wikimedia_api import WikiAPI as wiki
+from .maps_api import MapsAPI as maps
 
 
 app = Flask(__name__)

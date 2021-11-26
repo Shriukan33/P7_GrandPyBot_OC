@@ -1,6 +1,6 @@
 import requests
 
-from settings_local import MAPS_API_KEY
+from .settings_local import MAPS_API_KEY
 
 
 class MapsAPI:
@@ -23,8 +23,6 @@ class MapsAPI:
         """
         self.params["address"] = address
         response = requests.get(self.url, params=self.params)
-        print(response.url)
-        print(response.status_code)
         if response.status_code == 200:
             data = response.json()
             if data["results"]:
@@ -41,7 +39,8 @@ class MapsAPI:
         """
         params = self.params
         params["latlng"] = f"{lat},{lng}"
-        del params["address"]
+        if params["address"]:
+            del params["address"]
         response = requests.get(self.url, params=params)
         if response.status_code == 200:
             data = response.json()
