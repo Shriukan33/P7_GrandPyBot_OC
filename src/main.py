@@ -1,9 +1,9 @@
+import os
+
 from bleach import clean
 from flask import Flask, request, jsonify
 from flask import render_template
 from flask_wtf.csrf import CSRFProtect
-
-from .settings_local import SECRET_KEY, MAPS_API_KEY
 
 from .message_handler import MessageHandler as mh
 from .wikimedia_api import WikiAPI as wiki
@@ -12,14 +12,14 @@ from .maps_api import MapsAPI as maps
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
-app.secret_key = SECRET_KEY
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', "")
 
 
 @app.route("/")
 def landing_page():
     context = {}
     context["message_history"] = []
-    context["maps_api_key"] = MAPS_API_KEY
+    context["maps_api_key"] = os.environ.get('MAPS_API_KEY', "")
     return render_template("home.html", **context)
 
 

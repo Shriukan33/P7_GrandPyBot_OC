@@ -1,6 +1,5 @@
 import requests
-
-from .settings_local import MAPS_API_KEY
+import os
 
 
 class MapsAPI:
@@ -9,7 +8,7 @@ class MapsAPI:
     """
 
     def __init__(self):
-        self.key = MAPS_API_KEY
+        self.key = os.environ["MAPS_API_KEY"]
         self.url = "https://maps.googleapis.com/maps/api/geocode/json"
         self.params = {
             "key": self.key,
