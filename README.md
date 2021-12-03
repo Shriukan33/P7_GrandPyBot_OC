@@ -55,3 +55,7 @@ For example :
 After a few seconnds of thoughts, the bot comes up with an answer and updates the question, adding some trivia to it. 
 
 ![use_case_grandpybot](https://user-images.githubusercontent.com/70256364/144620564-85d82af7-f747-4224-b07d-11b5e0dd3e95.gif)
+
+Also works on mobile : 
+
+![use_case_mobile](https://user-images.githubusercontent.com/70256364/144622254-dc5c258b-77d8-4b8b-91aa-e5bb90ae3539.gif)
